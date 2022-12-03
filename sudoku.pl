@@ -1,20 +1,30 @@
 :- use_module(library(clpfd)). 
 
 sudoku(Rows) :-
-        length(Rows, 9), maplist(same_length(Rows), Rows),
-        append(Rows, Vs), Vs ins 1..9,
-        maplist(all_distinct, Rows),
-        transpose(Rows, Columns),
-        maplist(all_distinct, Columns),
-        Rows = [As,Bs,Cs,Ds,Es,Fs,Gs,Hs,Is],
-        blocks(As, Bs, Cs),
-        blocks(Ds, Es, Fs),
-        blocks(Gs, Hs, Is).
+        length(Linhas, 9), maplist(same_length(Linhas), Linhas),
+        append(Linhas, Vs), Vs ins 1..9,         /* ins tem que fazer/
+        maplist(all_distinct, Linhas),           /* Maplist incluído como padrão*/
+        transposta(Linhas, Colunas),             /* Feito*/
+        maplist(all_distinct, Colunas),
+        Linhas = [As,Bs,Cs,Ds,Es,Fs,Gs,Hs,Is],
+        Blocos(As, Bs, Cs),
+        Blocos(Ds, Es, Fs),
+        Blocos(Gs, Hs, Is).
 
-blocks([], [], []).
-blocks([N1,N2,N3|Ns1], [N4,N5,N6|Ns2], [N7,N8,N9|Ns3]) :-
+Blocos([], [], []).
+Blocos([N1,N2,N3|Ns1], [N4,N5,N6|Ns2], [N7,N8,N9|Ns3]) :-
         all_distinct([N1,N2,N3,N4,N5,N6,N7,N8,N9]),
-        blocks(Ns1, Ns2, Ns3).
+        Blocos(Ns1, Ns2, Ns3).
+
+
+/* Função para transpor as linhas*/
+transposta([[]|_], []).
+transposta(Matrix, [Row|Rows]) :- transposta_1st_col(Matrix, Row, RestMatrix),
+                                transposta(RestMatrix, Rows).
+transposta_1st_col([], [], []).
+transposta_1st_col([[H|T]|Rows], [H|Hs], [T|Ts]) :- transposta_1st_col(Rows, Hs, Ts).
+
+
 
 
 /* Query
