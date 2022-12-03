@@ -25,7 +25,16 @@ transposta_1st_col([], [], []).
 transposta_1st_col([[H|T]|Rows], [H|Hs], [T|Ts]) :- transposta_1st_col(Rows, Hs, Ts).
 
 
-
+/* função para substituir ins*/
+valor_limite(1).
+valor_limite(2).
+valor_limite(3).
+valor_limite(4).
+valor_limite(5).
+valor_limite(6).
+valor_limite(7).
+valor_limite(8).
+valor_limite(9).
 
 /* Query
 
